@@ -27,6 +27,19 @@ namespace Test.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPost("with-color")]
+        public IActionResult PostWithColor(CalculatorRequestDto calculatorRequestDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _calculatorService.CalculateWithColor(calculatorRequestDto);
+
+                return Ok(result);
+            }
+
+            return BadRequest(ModelState);
+        }
+
         [HttpGet("operations")]
         public IActionResult GetOperationList()
         {

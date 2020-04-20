@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
 using AutoMapper;
 using Test.Domain.Infrastructure.Enumerations;
+using Test.Domain.Infrastructure.Extensions;
 using Test.Domain.Infrastructure.Factories;
 using Test.Domain.Models.Calculator;
 
@@ -23,7 +21,7 @@ namespace Test.Domain.Services
             _mapper = mapper;
         }
 
-        public CalculatorResponseDto Calculate(CalculatorRequestDto requestDto)
+        public decimal Calculate(CalculatorRequestDto requestDto)
         {
             var calculatorStrategy = _calculatorStrategyFactory.CreateCalculatorStrategy(requestDto.OperationType);
             var calculatorModel = _mapper.Map<CalculatorModel>(requestDto);
@@ -31,6 +29,18 @@ namespace Test.Domain.Services
             var result = calculatorStrategy.Calculate(calculatorModel);
 
             return result;
+        }
+
+        public CalculatorWithColorResponseDto CalculateWithColor(CalculatorRequestDto requestDto)
+        {
+            var calculationResult = Calculate(requestDto);
+            var responseDto = new CalculatorWithColorResponseDto
+            {
+                Result = calculationResult,
+                Color = GetFieldColorByValue(calculationResult)
+            };
+
+            return responseDto;
         }
 
         public List<OperationResponseModel> GetOperationList()
@@ -42,7 +52,7 @@ namespace Test.Domain.Services
                 var operationResponseModel = new OperationResponseModel
                 {
                     OperationValue = (int) operationType,
-                    OperationText = GetDescription(operationType)
+                    OperationText = operationType.GetDescription()
                 };
 
                 operationList.Add(operationResponseModel);
@@ -51,16 +61,23 @@ namespace Test.Domain.Services
             return operationList;
         }
 
-        private static string GetDescription(Enum value)
+        private string GetFieldColorByValue(decimal value)
         {
-            return
-                value
-                    .GetType()
-                    .GetMember(value.ToString())
-                    .FirstOrDefault()
-                    ?.GetCustomAttribute<DescriptionAttribute>()
-                    ?.Description
-                ?? value.ToString();
+            string color = null;
+
+            if (value % 2 == 0)
+            {
+                color = "green";
+            }
+
+            if (value % 2 == 1)
+            {
+                color = "red";
+            }
+
+            return color;
         }
+
+        
     }
 }

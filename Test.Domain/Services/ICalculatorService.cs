@@ -5,7 +5,10 @@ namespace Test.Domain.Services
 {
     public interface ICalculatorService
     {
-        CalculatorResponseDto Calculate(CalculatorRequestDto requestDto);
+        decimal Calculate(CalculatorRequestDto requestDto);
+
+        CalculatorWithColorResponseDto CalculateWithColor(CalculatorRequestDto requestDto);
+
         List<OperationResponseModel> GetOperationList();
     }
 }

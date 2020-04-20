@@ -7,9 +7,11 @@ export class DataService {
 
     private url = "/api/calculator";
     private operationsUrl: string;
+    private withColor: string;
 
     constructor(private http: HttpClient) {
         this.operationsUrl = this.url + '/operations';
+        this.withColor = this.url + '/with-color';
     }
 
     getOperations() {
@@ -19,6 +21,6 @@ export class DataService {
     calculate(calculatorModel: CalculatorModel) {
         calculatorModel.operationType = +calculatorModel.operationType;
 
-        return this.http.post(this.url, calculatorModel);
+        return this.http.post(this.withColor, calculatorModel);
     }
 }

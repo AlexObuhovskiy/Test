@@ -2,7 +2,7 @@
   <input type="number" [(ngModel)]="calculatorModel.firstArgument" />
 
   <select matNativeControl [(ngModel)]="calculatorModel.operationType" name="car">
-    <option *ngFor="let operation of operationList; let i = index" [value]="operation.operationValue" [attr.selected]="i == 0 ? true : null">
+    <option *ngFor="let operation of operationList;" [value]="operation.operationValue">
       {{operation.operationText}}
     </option>
   </select>
