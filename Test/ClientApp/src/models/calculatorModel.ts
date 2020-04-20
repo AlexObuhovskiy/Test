@@ -1,6 +1,5 @@
 export class CalculatorModel {
     constructor(
-        public firstArgument?: number,
-        public secondArgument?: number,
+        public calculationArguments?: number[],
         public operationType?: number) { }
 }

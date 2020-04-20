@@ -1,8 +1,9 @@
-﻿namespace Test.Domain.Models.Calculator
+﻿using System.Collections.Generic;
+
+namespace Test.Domain.Models.Calculator
 {
     public class CalculatorModel
     {
-        public decimal FirstArgument { get; set; }
-        public decimal SecondArgument { get; set; }
+        public List<decimal> CalculationArguments { get; set; }
     }
 }

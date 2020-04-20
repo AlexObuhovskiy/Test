@@ -17,6 +17,10 @@
       "dom"
     ]
   },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
   "files": [
     "src/main.ts",
     "src/polyfills.ts"

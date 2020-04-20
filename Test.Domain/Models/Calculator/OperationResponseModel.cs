@@ -2,7 +2,8 @@
 {
     public class OperationResponseModel
     {
-        public int OperationValue { get; set; }
-        public string OperationText { get; set; }
+        public int Type { get; set; }
+        public string Description { get; set; }
+        public int ArgumentCount { get; set; }
     }
 }

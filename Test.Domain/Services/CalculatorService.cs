@@ -49,10 +49,13 @@ namespace Test.Domain.Services
 
             foreach (OperationType operationType in Enum.GetValues(typeof(OperationType)))
             {
+                var calculatorStrategy = _calculatorStrategyFactory.CreateCalculatorStrategy(operationType);
+
                 var operationResponseModel = new OperationResponseModel
                 {
-                    OperationValue = (int) operationType,
-                    OperationText = operationType.GetDescription()
+                    Type = (int) operationType,
+                    Description = operationType.GetDescription(),
+                    ArgumentCount = calculatorStrategy.ArgumentCount
                 };
 
                 operationList.Add(operationResponseModel);

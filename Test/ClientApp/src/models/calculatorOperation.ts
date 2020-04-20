@@ -1,4 +1,5 @@
 export class CalculatorOperation {
-    public operationValue: number;
-    public operationText: string;
+    public type: number;
+    public description: string;
+    public argumentCount: number;
 }

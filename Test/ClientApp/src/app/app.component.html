@@ -1,13 +1,18 @@
 <div>
-  <input type="number" [(ngModel)]="calculatorModel.firstArgument" />
+  <input type="number" *ngIf="selectedOperation && selectedOperation.argumentCount > 0"
+    [(ngModel)]="calculatorModel.calculationArguments[0]" />
 
-  <select matNativeControl [(ngModel)]="calculatorModel.operationType" name="car">
-    <option *ngFor="let operation of operationList;" [value]="operation.operationValue">
-      {{operation.operationText}}
+  <select matNativeControl [(ngModel)]="calculatorModel.operationType" name="car"
+    (change)="onSelectChange($event.target.value)">
+    <option *ngFor="let operation of operationList;" [value]="operation.type">
+      {{operation.description}}
     </option>
   </select>
-
-  <input type="number" [(ngModel)]="calculatorModel.secondArgument" />
+  
+  <span *ngFor="let a of calculatorModel.calculationArguments;let index = index;">
+    <input type="number" *ngIf="index > 0"
+      [(ngModel)]="calculatorModel.calculationArguments[index]" />
+  </span>
   =
   <input type="number" [(ngModel)]="calculatorResult.result" disabled />
   <input type="button" value="Calculate" (click)="calculate()" class="btn btn-sm btn-success" />
